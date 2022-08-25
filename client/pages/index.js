@@ -28,7 +28,6 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1>Hello Next</h1>
         <Gallery>
           {products.map((product) => (
             <Product key={product.attributes.slug} product={product} />
