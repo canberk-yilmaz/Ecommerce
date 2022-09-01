@@ -13,7 +13,8 @@ import { AiFillPlusCircle, AiFillMinusCircle } from "react-icons/ai";
 import { useStateContext } from "../../lib/context";
 
 export default function ProductDetails() {
-  const { qty, increaseQty, decreaseQty } = useStateContext();
+  const { qty, increaseQty, decreaseQty, cartItems, addToCart } =
+    useStateContext();
   const router = useRouter();
   const { slug } = router.query;
   // fetch GrapghQL data
@@ -48,7 +49,9 @@ export default function ProductDetails() {
             <AiFillPlusCircle />
           </button>
         </Quantity>
-        <Buy>Add to cart</Buy>
+        <Buy onClick={() => addToCart(data.products.data[0].attributes, qty)}>
+          Add to cart
+        </Buy>
       </ProductInfo>
     </DetailsStyle>
   );
