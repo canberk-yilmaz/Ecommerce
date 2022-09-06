@@ -6,14 +6,15 @@ import {
   CardInfo,
   EmptyStyle,
 } from "../styles/CartStyles";
+import { Quantity } from "../styles/ProductDetails";
 import { FaShoppingCart } from "react-icons/fa";
 import { AiFillPlusCircle, AiFillMinusCircle } from "react-icons/ai";
 
 export default function Cart() {
-  const { cartItems } = useStateContext();
+  const { cartItems, showCart, setShowCart, addToCart, removeFromCart } = useStateContext();
   return (
-    <CartWrapper>
-      <CartStyle>
+    <CartWrapper onClick={() => setShowCart(false)}>
+      <CartStyle onClick={(e) => e.stopPropagation()}>
         {cartItems.length < 1 && (
           <EmptyStyle>
             <h1>Cart is empty 😞</h1>
@@ -31,15 +32,15 @@ export default function Cart() {
                 <CardInfo>
                   <h3>{item.title}</h3>
                   <h3>{item.price} $</h3>
-                  <div>
+                  <Quantity>
                     <button>
-                      <AiFillMinusCircle />
+                      <AiFillMinusCircle onClick={() => removeFromCart(item, 1)} />
                     </button>
-                    <span>Quantity</span>
+                    <span>{item.quantity}</span>
                     <button>
-                      <AiFillPlusCircle />
+                      <AiFillPlusCircle onClick={() => addToCart(item, 1)} />
                     </button>
-                  </div>
+                  </Quantity>
                 </CardInfo>
               </Card>
             );
