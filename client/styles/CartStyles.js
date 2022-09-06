@@ -61,5 +61,3 @@ export const EmptyStyle = styled.div`
     color: var(--secondary);
   }
 `;
-
-export const Quantity = styled.div``;
