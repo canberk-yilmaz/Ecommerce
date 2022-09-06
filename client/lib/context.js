@@ -28,7 +28,6 @@ export const StateContext = ({ children }) => {
   // Add product to cart
 
   const addToCart = (product, quantity) => {
-    console.log(product, quantity);
     // Check if the product is already in the cart
     const exist = cartItems.find((item) => item.slug === product.slug);
     if (exist) {
@@ -45,6 +44,25 @@ export const StateContext = ({ children }) => {
     }
     console.log(cartItems);
   };
+  // Remove product from cart
+
+  const removeFromCart = (product, quantity) => {
+    // Check if the product is already in the cart
+    const exist = cartItems.find((item) => item.slug === product.slug);
+    if (exist.quantity === 1) {
+      // If it is, remove the item from cart
+      setcartItems(cartItems.filter((item) => item.slug !== product.slug));
+    } else {
+      setcartItems(
+        cartItems.map((item) =>
+          item.slug === product.slug
+            ? { ...exist, quantity: exist.quantity - quantity }
+            : item
+        )
+      );
+    }
+    console.log(cartItems);
+  };
 
   return (
     <ShopContext.Provider
@@ -56,6 +74,7 @@ export const StateContext = ({ children }) => {
         setShowCart,
         cartItems,
         addToCart,
+        removeFromCart,
       }}
     >
       {children}
