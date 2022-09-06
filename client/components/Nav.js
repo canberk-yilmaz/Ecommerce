@@ -2,18 +2,21 @@ import Link from "next/link";
 import { HiShoppingBag } from "react-icons/hi";
 import { NavStyles, NavItems } from "../styles/NavStyles.js";
 import Cart from "./Cart";
+import { useStateContext } from "../lib/context";
 
 export default function Nav() {
+  const { showCart, setShowCart } = useStateContext();
+
   return (
     <NavStyles>
       <Link href={"/"}>Ecommerce</Link>
       <NavItems>
-        <div>
+        <div onClick={() => setShowCart(!showCart)}>
           <HiShoppingBag />
           <h3>Cart</h3>
         </div>
       </NavItems>
-      <Cart />
+      {showCart && <Cart />}
     </NavStyles>
   );
 }
